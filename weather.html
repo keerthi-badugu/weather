@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+</head>
+
+<body>
+    <center>
+        <img width="200px" src="wheather.png" alt="">
+        <div class="container">
+            <div class="title">
+                <p>Weather Report</p>
+            </div>
+        </div>
+        <!-- <h1>Weather App</h1> -->
+        <form id="form">
+            <input type="text" placeholder="Location" id="input">
+            <button>Get</button>
+        </form>
+
+        <!-- <div class="img">
+        <img width="250px" src="png-transparent-computer-icons-cloud-computing-cloud-icon-cloud-heart-black-thumbnail.png" alt="">
+        </div> -->
+
+        <div id="cities">
+
+        </div>
+        
+
+       
+    </center>
+
+    
+
+    <script  class="script"> 
+
+    const form=document.getElementById("form");
+        const input=document.getElementById("input");
+        const info=document.getElementById("cities");
+        const apiKey="d3c4e2a58b10698ec1917fa34978ffc5";
+        form.addEventListener("click",e=>{
+            e.preventDefault();
+            info.textContent="";
+            const inputValue=input.value;
+            const url=`https://api.openweathermap.org/data/2.5/weather?q=${inputValue}&appid=${apiKey}&units=metric`;
+            fetch(url).then(response=>response.json())
+            .then(data=>{
+                // wrapping condition
+                const {main,name}=data;
+                const para=document.createElement
+                ("div");
+                para.innerHTML=`<p>City:${name}</p>
+                <div>Temperature:${Math.round(main.temp)}<sub>0</sub>C</div>`;
+                info.appendChild(para);
+            })
+            .catch(()=>{
+                // alert("Please enter the valid city");
+            });
+            form.reset();
+        })
+
+        
+    </script>
+
+    
+    
+</body>
+</html>
